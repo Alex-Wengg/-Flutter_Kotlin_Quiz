@@ -3,6 +3,8 @@ package com.example.quizz_app
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import android.content.Context
+import androidx.room.Room
 
 @Database(
     entities = [Choice::class, Question::class],
@@ -11,4 +13,26 @@ import androidx.room.RoomDatabase
 abstract class QuestionDatabase : RoomDatabase() {
 //https://developer.android.com/codelabs/android-room-with-a-view-kotlin#0
     abstract fun QuestionDao(): QuestionDao
+
+    companion object {
+    // Singleton prevents multiple instances of database  
+    @Volatile
+    private var INSTANCE: QuestionDatabase? = null
+
+    @Synchronized
+    fun getInstance(context: Context): QuestionDatabase {
+        // if the INSTANCE is not null, then return it,
+        // if it is, then create the database
+        return INSTANCE ?: synchronized(this) {
+            val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    QuestionDatabase::class.java, 
+                    "Question"
+                ).build()
+            INSTANCE = instance
+            // return instance
+            instance
+        }
+    }
+}
 }

@@ -12,9 +12,21 @@ import com.google.gson.Gson
 
 
 class MainActivity: FlutterActivity() {
+
+    // private var qdb: QuestionDatabase = QuestionDatabase.getInstance(this);
+
+
+
+ 
+
   //override the configureFlutterEngine from FlutterActivity to register a 
   //method channel for building a communication line with Dart.
   override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
+    var qdb: QuestionDatabase = async { QuestionDatabase.getInstance(this)}.await();
+    // Log.d("TAG", "today's message message");
+    // Log.d("TAG", (Gson().toJson(qdb.QuestionDao().getQuestions())));
+    doAsync
+
     super.configureFlutterEngine(flutterEngine)
     MethodChannel(flutterEngine.dartExecutor.binaryMessenger, "example.com/channel").setMethodCallHandler {
       call, result ->
