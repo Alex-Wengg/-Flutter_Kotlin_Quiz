@@ -1,6 +1,6 @@
 package com.example.quizz_app
 
-data class Question(
+data class QuestionModel(
     val title: String,
 
     val text: String,
