@@ -3,22 +3,26 @@ package com.example.quizz_app
 import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.viewModelScope;
+import androidx.lifecycle.asLiveData
+
+import kotlinx.coroutines.launch
 
 import java.util.List;
 
-public class QuestionViewModel extends AndroidViewModel {
+class QuestionViewModel(private val repository: QuestionRepository) : ViewModel() {
 
-   private QuestionRepository mRepository;
 
-   private final LiveData<List<Question>> mAllWords;
+    // private val mAllWords: LiveData<List<Question>> = repository.getQuestions().asLiveData() ;
 
-   public QuestionViewModel (Application application) {
-       super(application);
-       mRepository = new QuestionRepository(application);
-       mAllWords = mRepository.getQuestions();
-   }
+      val getQuestions: kotlin.collections.List<Question> = 
+       
+            repository.getQuestions; 
+    // Launching a new coroutine to insert the data in a non-blocking way
 
-   LiveData<List<Question>> getQuestions() { return mAllWords; }
-
-   public void insert(Question word) { mRepository.insert(word); }
+    fun  insert(question: Question) = 
+        viewModelScope.launch  { 
+            repository.insert(question); 
+        }
 }
