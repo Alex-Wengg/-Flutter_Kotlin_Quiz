@@ -4,18 +4,23 @@ import kotlin.random.Random
 import androidx.annotation.NonNull
 import android.content.res.Configuration
 import io.flutter.embedding.android.FlutterActivity
+import io.flutter.embedding.android.FlutterFragmentActivity
+
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
 import android.util.Log
 import android.content.Context
 import com.google.gson.Gson
+import androidx.activity.viewModels
 
 
-class MainActivity: FlutterActivity() {
+class MainActivity:  FlutterFragmentActivity() {
 
     // private var qdb: QuestionDatabase = QuestionDatabase.getInstance(this);
 
-
+    private val questionViewModel: QuestionViewModel by viewModels {
+        QuestionViewModelFactory((application as QuestionApplication).repository)
+    }
 
  
 
@@ -23,9 +28,9 @@ class MainActivity: FlutterActivity() {
   //method channel for building a communication line with Dart.
   override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
     // var qdb: QuestionDatabase = async { QuestionDatabase.getInstance(this)}.await();
-    // Log.d("TAG", "today's message message");
-    // Log.d("TAG", (Gson().toJson(qdb.QuestionDao().getQuestions())));
-    
+    Log.d("TAG", "today's message message");
+    Log.d("TAG", (Gson().toJson(questionViewModel.getQuestions)));
+         
 
     super.configureFlutterEngine(flutterEngine)
     MethodChannel(flutterEngine.dartExecutor.binaryMessenger, "example.com/channel").setMethodCallHandler {

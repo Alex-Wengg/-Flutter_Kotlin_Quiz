@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.viewModelScope;
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.ViewModelProvider
 
 import kotlinx.coroutines.launch
 
@@ -25,4 +26,14 @@ class QuestionViewModel(private val repository: QuestionRepository) : ViewModel(
         viewModelScope.launch  { 
             repository.insert(question); 
         }
+}
+class QuestionViewModelFactory(private val repository: QuestionRepository) : ViewModelProvider.Factory {
+
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(QuestionViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return QuestionViewModel(repository) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
 }
