@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 interface QuestionDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertQuestion(question: Question)
+    suspend fun insertQuestion(question: Question): Long
 
     @Insert
     suspend fun insertChoices(choices: List<Choice>)

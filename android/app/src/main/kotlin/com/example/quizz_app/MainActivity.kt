@@ -38,8 +38,21 @@ class MainActivity:  FlutterFragmentActivity() {
           val questionList = Gson().toJson(setData.getQuestions())
 
   Log.d("TAG", "today's what how message");
+   val que1 = Question("",
+          "Can our insertion work?"
+        )
+          // kotlin.collections.hashMapOf("1" to false, 
+          //           "3" to false, 
+          //           "12" to true,
+          //           "5" to false)
+ 
+    Log.d("SSTAG", (questionViewModel.insert(que1)).toString());
     Log.d("TAG", (Gson().toJson(questionViewModel.getQuestions)));
-         
+    var save = 0;
+    questionViewModel.id.observe(this) {
+    Log.d("questionViewModel.id.value", (questionViewModel.id.value).toString());
+     questionViewModel.id.value
+    }
 
           // questionList=setData.getQuestions()
           // Log.d("TAG", "today's message message");

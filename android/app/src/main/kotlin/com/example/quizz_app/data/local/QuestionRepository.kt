@@ -36,10 +36,10 @@ class QuestionRepository(private val questionDao: QuestionDao)  {
     // that you're not doing any long running operations on the main thread, blocking the UI.
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun insert(question: Question) {
+    suspend fun insert(question: Question): Long? {
         // QuestionDatabase.databaseWriteExecutor.execute(Runnable  {
 
-            questionDao.insertQuestion(question);
+            return questionDao.insertQuestion(question);
         // });
     }
 }
