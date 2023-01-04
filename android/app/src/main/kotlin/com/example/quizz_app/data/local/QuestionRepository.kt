@@ -2,6 +2,8 @@ package com.example.quizz_app
 
 import android.app.Application;
 import androidx.lifecycle.LiveData;
+import kotlinx.coroutines.flow.Flow
+import androidx.annotation.WorkerThread
 
 import java.util.List;
 
@@ -27,14 +29,16 @@ class QuestionRepository(private val questionDao: QuestionDao)  {
     //     return  questionDao.getQuestions();
     // }
 
-    val getQuestions: kotlin.collections.List<Question> = questionDao.getQuestions()
+    val getQuestions: Flow<kotlin.collections.List<Question>> = questionDao.getQuestions()
 
 
     // You must call this on a non-UI thread or your app will throw an exception. Room ensures
     // that you're not doing any long running operations on the main thread, blocking the UI.
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
     suspend fun insert(question: Question) {
         // QuestionDatabase.databaseWriteExecutor.execute(Runnable  {
-            
+
             questionDao.insertQuestion(question);
         // });
     }

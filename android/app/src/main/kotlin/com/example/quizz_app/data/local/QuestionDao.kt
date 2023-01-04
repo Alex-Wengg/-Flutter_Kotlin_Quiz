@@ -2,6 +2,7 @@ package com.example.quizz_app
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface QuestionDao {
@@ -19,7 +20,7 @@ interface QuestionDao {
     suspend fun deleteChoices(choices: List<Choice>)
 
     @Query("SELECT * FROM Question")
-    fun getQuestions(): List<Question>
+    fun getQuestions(): Flow<List<Question>>
 
     @Query("SELECT * FROM Choice WHERE QuestionId = :Qid")
     fun getChoices(Qid: Int): List<Choice>

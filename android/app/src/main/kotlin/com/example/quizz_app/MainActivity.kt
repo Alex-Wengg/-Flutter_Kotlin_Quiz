@@ -22,15 +22,11 @@ class MainActivity:  FlutterFragmentActivity() {
         QuestionViewModelFactory((application as QuestionApplication).repository)
     }
 
- 
-
   //override the configureFlutterEngine from FlutterActivity to register a 
   //method channel for building a communication line with Dart.
   override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
     // var qdb: QuestionDatabase = async { QuestionDatabase.getInstance(this)}.await();
-    Log.d("TAG", "today's message message");
-    Log.d("TAG", (Gson().toJson(questionViewModel.getQuestions)));
-         
+  
 
     super.configureFlutterEngine(flutterEngine)
     MethodChannel(flutterEngine.dartExecutor.binaryMessenger, "example.com/channel").setMethodCallHandler {
@@ -41,10 +37,14 @@ class MainActivity:  FlutterFragmentActivity() {
         } else if (call.method == "test") {
           val questionList = Gson().toJson(setData.getQuestions())
 
-          // questionList=setData.getQuestions()
-          Log.d("TAG", "today's message message");
+  Log.d("TAG", "today's what how message");
+    Log.d("TAG", (Gson().toJson(questionViewModel.getQuestions)));
+         
 
-          Log.d("TAG",  questionList);
+          // questionList=setData.getQuestions()
+          // Log.d("TAG", "today's message message");
+
+          // Log.d("TAG",  questionList);
 
           result.success(questionList)
         }else {

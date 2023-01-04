@@ -21,7 +21,8 @@ abstract class QuestionDatabase : RoomDatabase() {
     private var INSTANCE: QuestionDatabase? = null
 
     @Synchronized
-    fun getInstance(context: Context, scope: CoroutineScope): QuestionDatabase {
+    fun getInstance(context: Context, 
+    scope: CoroutineScope): QuestionDatabase {
         // if the INSTANCE is not null, then return it,
         // if it is, then create the database
         return INSTANCE ?: synchronized(this) {
