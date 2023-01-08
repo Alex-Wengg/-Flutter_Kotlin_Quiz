@@ -37,7 +37,7 @@ class QuestionViewModel(private val repository: QuestionRepository) : ViewModel(
         Log.d("before", (id.value).toString());
 
         }
-    
+
         return id;
      }
 }

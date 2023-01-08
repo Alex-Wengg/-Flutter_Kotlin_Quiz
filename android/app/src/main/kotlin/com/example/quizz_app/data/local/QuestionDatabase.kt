@@ -39,12 +39,22 @@ abstract class QuestionDatabase : RoomDatabase() {
     suspend fun populateDatabase(wordDao: WordDao) {
             // Start the app with a clean database every time.
             // Not needed if you only populate on creation.
-            wordDao.deleteAll()
+            questionDao.deleteAll()
+            var question = Question("","")
+            var choice = Choice("", true)
 
-            var word = Word("Hello")
-            wordDao.insert(word)
-            word = Word("World!")
-            wordDao.insert(word)
+
+            question = Question("kubernetes", "API object that manages external access to the services in a cluster, typically HTTP.")
+            questionDao.insertQuestion(question)
+
+            choice = Choice("Ingress", true)
+            questiondao.insertChoices(choice)
+            choice = Choice("Progress", false)
+            questiondao.insertChoices(choice)
+            choice = Choice("Regress", false)
+            questiondao.insertChoices(choice)
+
+
         }
     }
 }
