@@ -42,16 +42,17 @@ abstract class QuestionDatabase : RoomDatabase() {
             questionDao.deleteAll()
             var question = Question("","")
             var choice = Choice("", true)
-
+            var qid = 0
 
             question = Question("kubernetes", "API object that manages external access to the services in a cluster, typically HTTP.")
-            questionDao.insertQuestion(question)
+           
+            qid =  questionDao.insertQuestion(question)
 
-            choice = Choice("Ingress", true)
+            choice = Choice("Ingress", true, qid)
             questiondao.insertChoices(choice)
-            choice = Choice("Progress", false)
+            choice = Choice("Progress", false, qid)
             questiondao.insertChoices(choice)
-            choice = Choice("Regress", false)
+            choice = Choice("Regress", false, qid)
             questiondao.insertChoices(choice)
 
 
