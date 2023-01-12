@@ -6,6 +6,7 @@ import androidx.room.RoomDatabase
 import android.content.Context
 import androidx.room.Room
 import kotlinx.coroutines.CoroutineScope
+import android.util.Log
 
 @Database(
     entities = [Choice::class, Question::class],
@@ -36,24 +37,26 @@ abstract class QuestionDatabase : RoomDatabase() {
             instance
         }
     }
-    suspend fun populateDatabase(wordDao: WordDao) {
+    suspend fun populateDatabase(questionDao: QuestionDao) {
             // Start the app with a clean database every time.
             // Not needed if you only populate on creation.
-            questionDao.deleteAll()
+
+
+            //questionDao.deleteAll()
             var question = Question("","")
-            var choice = Choice("", true)
-            var qid = 0
+            var choice:Long = Choice("", true)
+            var qid:Long = 0
 
             question = Question("kubernetes", "API object that manages external access to the services in a cluster, typically HTTP.")
-           
+            Log.d("TAG", "pie")
             qid =  questionDao.insertQuestion(question)
 
             choice = Choice("Ingress", true, qid)
-            questiondao.insertChoices(choice)
+            questionDao.insertChoices(choice)
             choice = Choice("Progress", false, qid)
-            questiondao.insertChoices(choice)
+            questionDao.insertChoices(choice)
             choice = Choice("Regress", false, qid)
-            questiondao.insertChoices(choice)
+            questionDao.insertChoices(choice)
 
 
         }
