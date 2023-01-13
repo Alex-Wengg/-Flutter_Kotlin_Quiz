@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.Flow
 import android.util.Log
 
 import kotlinx.coroutines.launch
+import com.google.gson.Gson
 
 import java.util.List;
 
@@ -22,10 +23,11 @@ class QuestionViewModel(private val repository: QuestionRepository) : ViewModel(
 
     // private val mAllWords: LiveData<List<Question>> = repository.getQuestions().asLiveData() ;
 
-    val getQuestions: Flow<kotlin.collections.List<Question>> = 
+    val getQuestions: LiveData<kotlin.collections.List<Question>> = 
     
-    repository.getQuestions; 
+    repository.getQuestions.asLiveData(); 
     val id =  MutableLiveData<Long>() ;
+    val questions =  MutableLiveData<Question>() ;
 
     // Launching a new coroutine to insert the data in a non-blocking way
     fun insert(question: Question): LiveData<Long>{
@@ -34,12 +36,24 @@ class QuestionViewModel(private val repository: QuestionRepository) : ViewModel(
         val valueId = repository.insert(question);
 
         id.value  = valueId;
-        Log.d("before", (id.value).toString());
-
+        
         }
 
         return id;
      }
+
+    //      fun getThemeQuestions(question: String): Flow<kotlin.collections.List<Question>> {
+        
+    //     // viewModelScope.launch {
+    //     questions.value = repository.getThemeQuestions(question);
+
+    //     // id.value  = valueId;
+    //     // Log.d("before", (id.value).toString());
+
+    //     // }
+
+    //     return valueId;
+    //  }
 }
 class QuestionViewModelFactory(private val repository: QuestionRepository) : ViewModelProvider.Factory {
 

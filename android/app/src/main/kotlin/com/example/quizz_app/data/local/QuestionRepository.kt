@@ -31,6 +31,7 @@ class QuestionRepository(private val questionDao: QuestionDao)  {
 
     val getQuestions: Flow<kotlin.collections.List<Question>> = questionDao.getQuestions()
 
+    val getThemeQuestions: Flow<kotlin.collections.List<Question>> = questionDao.getQuestions()
 
     // You must call this on a non-UI thread or your app will throw an exception. Room ensures
     // that you're not doing any long running operations on the main thread, blocking the UI.
@@ -42,4 +43,14 @@ class QuestionRepository(private val questionDao: QuestionDao)  {
             return questionDao.insertQuestion(question);
         // });
     }
+
+        @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun getThemeQuestions(text: String): Flow<kotlin.collections.List<Question>>  {
+        // QuestionDatabase.databaseWriteExecutor.execute(Runnable  {
+
+            return questionDao.getThemeQuestions(text);
+        // });
+    }
+    
 }

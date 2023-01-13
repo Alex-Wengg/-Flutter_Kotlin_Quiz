@@ -41,23 +41,17 @@ class MainActivity:  FlutterFragmentActivity() {
    val que1 = Question("",
           "Can our insertion work?"
         )
-          // kotlin.collections.hashMapOf("1" to false, 
-          //           "3" to false, 
-          //           "12" to true,
-          //           "5" to false)
+           
  
-    Log.d("SSTAG", (questionViewModel.insert(que1)).toString());
-    Log.d("TAG", (Gson().toJson(questionViewModel.getQuestions)));
     var save = 0;
     questionViewModel.id.observe(this) {
     Log.d("questionViewModel.id.value", (questionViewModel.id.value).toString());
-     questionViewModel.id.value
     }
+    questionViewModel.getQuestions.observe( this) {  
+            // Update the cached copy of the words in the adapter.
+      Log.d("questionViewModel.questions.value", (questionViewModel.getQuestions.value).toString());
+    } 
 
-          // questionList=setData.getQuestions()
-          // Log.d("TAG", "today's message message");
-
-          // Log.d("TAG",  questionList);
 
           result.success(questionList)
         }else {

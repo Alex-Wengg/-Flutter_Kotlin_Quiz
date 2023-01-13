@@ -18,7 +18,7 @@ object setData {
 
         val questionsList = ArrayList<QuestionModel>()
 
-        // // 1
+        // 1
         val que1 = QuestionModel("",
           "How Many Whiskers does the average cat have on each side of its face ?",
           hashMapOf("1" to false, 

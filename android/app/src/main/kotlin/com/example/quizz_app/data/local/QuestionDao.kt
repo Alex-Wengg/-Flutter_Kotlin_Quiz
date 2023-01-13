@@ -11,6 +11,9 @@ interface QuestionDao {
     suspend fun insertQuestion(question: Question): Long
 
     @Insert
+    suspend fun insertChoice(choice: Choice): Long
+
+    @Insert
     suspend fun insertChoices(choices: List<Choice>)
 
     @Delete
@@ -19,8 +22,11 @@ interface QuestionDao {
     @Delete
     suspend fun deleteChoices(choices: List<Choice>)
 
-    @Query("SELECT * FROM Question")
+    @Query("SELECT * FROM Question ORDER BY id DESC")
     fun getQuestions(): Flow<List<Question>>
+
+    @Query("SELECT * FROM Question WHERE category = :Theme")
+    fun getThemeQuestions(Theme: String): Flow<List<Question>>
 
     @Query("SELECT * FROM Choice WHERE QuestionId = :Qid")
     fun getChoices(Qid: Int): List<Choice>
