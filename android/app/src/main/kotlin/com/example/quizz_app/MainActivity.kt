@@ -49,7 +49,7 @@ class MainActivity:  FlutterFragmentActivity() {
     }
     questionViewModel.getQuestions.observe( this) {  
             // Update the cached copy of the words in the adapter.
-      Log.d("questionViewModel.questions.value", (questionViewModel.getQuestions.value).toString());
+      Log.d("questionViewModel.questions.value",  Gson().toJson(questionViewModel.getQuestions.value));
     } 
 
 
