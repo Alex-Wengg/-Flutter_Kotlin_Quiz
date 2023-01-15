@@ -44,13 +44,19 @@ class QuestionRepository(private val questionDao: QuestionDao)  {
         // });
     }
 
-        @Suppress("RedundantSuspendModifier")
+    @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun getThemeQuestions(text: String): Flow<kotlin.collections.List<Question>>  {
+    suspend fun getThemeQuestions(theme: String): Flow<kotlin.collections.List<Question>>  {
         // QuestionDatabase.databaseWriteExecutor.execute(Runnable  {
-
-            return questionDao.getThemeQuestions(text);
+            return questionDao.getThemeQuestions(theme);
         // });
     }
-    
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun getChoices(id: Int): Flow<kotlin.collections.List<Choice>>  {
+        // QuestionDatabase.databaseWriteExecutor.execute(Runnable  {
+            return questionDao.getChoices(id);
+        // });
+    }
 }

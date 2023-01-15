@@ -26,7 +26,6 @@ class MainActivity:  FlutterFragmentActivity() {
   //method channel for building a communication line with Dart.
   override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
     // var qdb: QuestionDatabase = async { QuestionDatabase.getInstance(this)}.await();
-  
 
     super.configureFlutterEngine(flutterEngine)
     MethodChannel(flutterEngine.dartExecutor.binaryMessenger, "example.com/channel").setMethodCallHandler {
@@ -37,26 +36,26 @@ class MainActivity:  FlutterFragmentActivity() {
         } else if (call.method == "test") {
           val questionList = Gson().toJson(setData.getQuestions())
 
-  Log.d("TAG", "today's what how message");
-   val que1 = Question("",
-          "Can our insertion work?"
-        )
-           
- 
+    Log.d("TAG", "today's what how message");
+    val que1 = Question("",  "Can our insertion work ok ?"  )
+
     var save = 0;
+    questionViewModel.insert(que1);
+    // Log.d("SSTAG", (questionViewModel.insert(que1)).toString());
+
     questionViewModel.id.observe(this) {
-    Log.d("questionViewModel.id.value", (questionViewModel.id.value).toString());
+    Log.d("questionViewModel.id.value", questionViewModel.insert(que1).toString());
     }
-    questionViewModel.getQuestions.observe( this) {  
+    questionViewModel.getQuestions.observe( this) {
             // Update the cached copy of the words in the adapter.
-      Log.d("questionViewModel.questions.value",  Gson().toJson(questionViewModel.getQuestions.value));
-    } 
+    Log.d("questionViewModel.questions.value",  Gson().toJson(questionViewModel.getQuestions.value));
+    }
 
 
-          result.success(questionList)
-        }else {
-          result.notImplemented()
-        }
+    result.success(questionList)
+  }else {
+    result.notImplemented()
+  }
     }
   }
 }

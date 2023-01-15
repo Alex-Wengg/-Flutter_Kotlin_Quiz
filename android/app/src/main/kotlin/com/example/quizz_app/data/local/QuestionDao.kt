@@ -29,5 +29,5 @@ interface QuestionDao {
     fun getThemeQuestions(Theme: String): Flow<List<Question>>
 
     @Query("SELECT * FROM Choice WHERE QuestionId = :Qid")
-    fun getChoices(Qid: Int): List<Choice>
+    fun getChoices(Qid: Int): Flow<List<Choice>>
 }
