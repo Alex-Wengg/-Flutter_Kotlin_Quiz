@@ -4,6 +4,8 @@ import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.MediatorLiveData 
+
 
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.viewModelScope;
@@ -24,9 +26,15 @@ class QuestionViewModel(private val repository: QuestionRepository) : ViewModel(
     // private val mAllWords: LiveData<List<Question>> = repository.getQuestions().asLiveData() ;
 
     val getQuestions: LiveData<kotlin.collections.List<Question>> = 
-    
     repository.getQuestions.asLiveData(); 
-    val id =  MutableLiveData<Long>() ;
+
+
+    val getChoices: LiveData<kotlin.collections.List<Choice>> = 
+    repository.getChoices.asLiveData(); 
+
+
+    val qid =  MutableLiveData<Long>() ;
+
     val questions =  MutableLiveData<Question>() ;
 
     // Launching a new coroutine to insert the data in a non-blocking way
@@ -35,11 +43,11 @@ class QuestionViewModel(private val repository: QuestionRepository) : ViewModel(
         viewModelScope.launch {
         val valueId = repository.insert(question);
 
-        id.value  = valueId;
+        qid.value  = valueId;
         
         }
 
-        return id;
+        return qid;
      }
 
     //      fun getThemeQuestions(question: String): Flow<kotlin.collections.List<Question>> {

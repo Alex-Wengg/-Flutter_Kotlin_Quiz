@@ -26,7 +26,6 @@ class MainActivity:  FlutterFragmentActivity() {
   //method channel for building a communication line with Dart.
   override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
     // var qdb: QuestionDatabase = async { QuestionDatabase.getInstance(this)}.await();
-  
 
     super.configureFlutterEngine(flutterEngine)
     MethodChannel(flutterEngine.dartExecutor.binaryMessenger, "example.com/channel").setMethodCallHandler {
@@ -37,26 +36,31 @@ class MainActivity:  FlutterFragmentActivity() {
         } else if (call.method == "test") {
           val questionList = Gson().toJson(setData.getQuestions())
 
-  Log.d("TAG", "today's what how message");
-   val que1 = Question("",
-          "Can our insertion work?"
-        )
-           
- 
-    var save = 0;
-    questionViewModel.id.observe(this) {
-    Log.d("questionViewModel.id.value", (questionViewModel.id.value).toString());
+    Log.d("TAG", "today's what how message");
+    val que1 = Question("",  "Can our insertion work ok ?"  )
+
+    var save = Gson().toJson(questionViewModel.getQuestions.getValue());
+    questionViewModel.insert(que1);
+    // Log.d("SSTAG", (questionViewModel.insert(que1)).toString());
+
+    questionViewModel.qid.observe(this) {
+    Log.d("questionViewModel.questions.value",  Gson().toJson(questionViewModel.qid.value));
     }
-    questionViewModel.getQuestions.observe( this) {  
-            // Update the cached copy of the words in the adapter.
-      Log.d("questionViewModel.questions.value",  Gson().toJson(questionViewModel.getQuestions.value));
-    } 
 
 
-          result.success(questionList)
-        }else {
-          result.notImplemented()
-        }
+    questionViewModel.getQuestions.observe(this){
+    Log.d("questionViewModel.questions.value",  Gson().toJson(questionViewModel.getQuestions.value));
+    }
+    
+    questionViewModel.getChoices.observe(this) {
+    Log.d("questionViewModel.choices.value",  Gson().toJson(questionViewModel.getChoices.value));
+    }
+    // Log.d("rag", save)
+
+    result.success(questionList)
+  }else {
+    result.notImplemented()
+  }
     }
   }
 }
