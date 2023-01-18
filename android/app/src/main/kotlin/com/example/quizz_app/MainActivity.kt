@@ -5,6 +5,7 @@ import androidx.annotation.NonNull
 import android.content.res.Configuration
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.android.FlutterFragmentActivity
+// import io.flutter.plugins.asynchronous_method_channel.AsynchronousMethodChannel
 
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
@@ -13,8 +14,9 @@ import android.content.Context
 import com.google.gson.Gson
 import androidx.activity.viewModels
 
+import android.os.Handler
 
-class MainActivity:  FlutterFragmentActivity() {
+class MainActivity:  FlutterFragmentActivity()   {
 
     // private var qdb: QuestionDatabase = QuestionDatabase.getInstance(this);
 
@@ -30,37 +32,48 @@ class MainActivity:  FlutterFragmentActivity() {
     super.configureFlutterEngine(flutterEngine)
     MethodChannel(flutterEngine.dartExecutor.binaryMessenger, "example.com/channel").setMethodCallHandler {
       call, result ->
-        if(call.method == "getRandomNumber") {
-          val rand = Random.nextInt(100)
-          result.success(rand)
-        } else if (call.method == "test") {
-          val questionList = Gson().toJson(setData.getQuestions())
+      if(call.method == "getRandomNumber") {
+        val rand = Random.nextInt(100)
+        result.success(rand)
+      } else if (call.method == "test") {
+        var questionList = Gson().toJson(setData.getQuestions())
 
-    Log.d("TAG", "today's what how message");
-    val que1 = Question("",  "Can our insertion work ok ?"  )
+        Log.d("TAG", "today's what how message");
+        val que1 = Question("",  "Can our insertion work ok ?"  )
 
-    var save = Gson().toJson(questionViewModel.getQuestions.getValue());
-    questionViewModel.insert(que1);
-    // Log.d("SSTAG", (questionViewModel.insert(que1)).toString());
+        var save = Gson().toJson(questionViewModel.getQuestions.getValue());
+        // questionViewModel.insert(que1);
+        // Log.d("SSTAG", (questionViewModel.insert(que1)).toString());
 
-    questionViewModel.qid.observe(this) {
-    Log.d("questionViewModel.questions.value",  Gson().toJson(questionViewModel.qid.value));
+        questionViewModel.qid.observe(this) {
+        Log.d("questionViewModel.questions.value",  Gson().toJson(questionViewModel.qid.value));
+        }
+
+          questionViewModel.getQuestions.observe(this){
+          Log.d("questionViewModel.questions.value",  Gson().toJson(questionViewModel.getQuestions.value));
+          questionList= Gson().toJson(questionViewModel.getQuestions.value)
+          }
+
+        questionViewModel.getChoices.observe(this) {
+          Log.d("questionViewModel.choices.value",  Gson().toJson(questionViewModel.getChoices.value));
+        }
+      // Log.d("rag", save)
+
+      getAndroidID( result) 
+    }else {
+      result.notImplemented()
     }
-
-
-    questionViewModel.getQuestions.observe(this){
-    Log.d("questionViewModel.questions.value",  Gson().toJson(questionViewModel.getQuestions.value));
     }
-    
-    questionViewModel.getChoices.observe(this) {
-    Log.d("questionViewModel.choices.value",  Gson().toJson(questionViewModel.getChoices.value));
-    }
-    // Log.d("rag", save)
-
-    result.success(questionList)
-  }else {
-    result.notImplemented()
   }
-    }
+  private fun getAndroidID( result: MethodChannel.Result) {
+      var test = ""
+          Log.d("test", test);
+        questionViewModel.getChoices.observe(this) {
+          test =  Gson().toJson(questionViewModel.getQuestions.value)
+
+          Log.d("questionViewModel.getQuestions.value",  test);
+          result.success(test)
+        }
+      
   }
 }
