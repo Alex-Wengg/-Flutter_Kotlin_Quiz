@@ -67,13 +67,17 @@ class MainActivity:  FlutterFragmentActivity()   {
   }
   private fun getAndroidID( result: MethodChannel.Result) {
       var test = ""
-          Log.d("test", test);
-        questionViewModel.getChoices.observe(this) {
+      Log.d("test", test);
+
+      questionViewModel.getChoices.observe(this) {
+        Handler().postDelayed({
           test =  Gson().toJson(questionViewModel.getQuestions.value)
 
           Log.d("questionViewModel.getQuestions.value",  test);
           result.success(test)
-        }
+        // }, 5000)
+
+      }
       
   }
 }
