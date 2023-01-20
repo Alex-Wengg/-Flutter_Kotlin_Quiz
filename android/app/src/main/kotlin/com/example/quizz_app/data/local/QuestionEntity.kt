@@ -9,6 +9,12 @@ import androidx.room.Relation
 data class Question(
     var category: String,
     var text: String,
+    var choice1: String,
+    var choice2: String?,
+    var choice3: String?,
+    var choice4: String?,
+    var answer: Int,
+
     @PrimaryKey(autoGenerate = true)
     val id: Int? = null
 
