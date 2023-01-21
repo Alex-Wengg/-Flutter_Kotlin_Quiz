@@ -23,6 +23,7 @@ class _QuizzScreenState extends State<QuizzScreen> {
   bool answered = false;
   String receivedJson = "";
   List<dynamic> questions = [];
+  List<String> choices = ['choice1', 'choice2', 'choice3', 'choice4'];
 
   static const platform = MethodChannel('example.com/channel');
   Future<void> _generateRandomNumber() async {
@@ -95,6 +96,45 @@ class _QuizzScreenState extends State<QuizzScreen> {
                         fontSize: 22.0,
                       ),
                     ),
+                  ),
+                  for (int i = 0; i < 4; i++)
+                    Container(
+                      width: double.infinity,
+                      height: 50.0,
+                      margin: EdgeInsets.only(
+                          bottom: 20.0, left: 12.0, right: 12.0),
+                      child: RawMaterialButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        fillColor: btnPressed
+                            ? questions[index][choices[i]]
+                                ? Colors.green
+                                : Colors.red
+                            : AppColor.secondaryColor,
+                        onPressed: !answered
+                            ? () {
+                                if (i == (questions[index]["answer"] - 1)) {
+                                  score++;
+                                  print("yes");
+                                } else {
+                                  print("no");
+                                }
+                                setState(() {
+                                  btnPressed = true;
+                                  answered = true;
+                                });
+                              }
+                            : null,
+                        child: Text(questions[index][choices[i]],
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18.0,
+                            )),
+                      ),
+                    ),
+                  SizedBox(
+                    height: 40.0,
                   ),
                   RawMaterialButton(
                     onPressed: () {
