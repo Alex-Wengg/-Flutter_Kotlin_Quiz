@@ -39,11 +39,11 @@ class MainActivity:  FlutterFragmentActivity()   {
         var questionList = Gson().toJson(setData.getQuestions())
 
         Log.d("TAG", "today's what how message");
-        val que1 = Question("",  "Can our insertion work ok ?"  )
+        val que1 = Question("",  "Can our insertion work ok ?" , "yes", null,null, null, 1)
 
         var save = Gson().toJson(questionViewModel.getQuestions.getValue());
-        // questionViewModel.insert(que1);
-        // Log.d("SSTAG", (questionViewModel.insert(que1)).toString());
+        questionViewModel.insert(que1);
+        Log.d("SSTAG", (questionViewModel.insert(que1)).toString());
 
         questionViewModel.qid.observe(this) {
         Log.d("questionViewModel.questions.value",  Gson().toJson(questionViewModel.qid.value));
@@ -75,7 +75,7 @@ class MainActivity:  FlutterFragmentActivity()   {
 
           Log.d("questionViewModel.getQuestions.value",  test);
           result.success(test)
-        // }, 5000)
+        }, 5000)
 
       }
       

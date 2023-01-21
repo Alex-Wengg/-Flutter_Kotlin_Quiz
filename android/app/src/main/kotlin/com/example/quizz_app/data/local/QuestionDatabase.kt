@@ -14,7 +14,7 @@ import android.util.Log
 
 @Database(
     entities = [Choice::class, Question::class],
-    version = 2, exportSchema = false
+    version = 3, exportSchema = false
 )
 abstract class QuestionDatabase : RoomDatabase() {
 //https://developer.android.com/codelabs/android-room-with-a-view-kotlin#0
@@ -73,11 +73,18 @@ abstract class QuestionDatabase : RoomDatabase() {
 
 
             //questionDao.deleteAll()
-            var question = Question("","")
+            var question = Question("","","","","","",1)
             var choice = Choice("", true)
             var qid:Int = 0
 
-            question = Question("kubernetes", "API object that manages external access to the services in a cluster, typically HTTP.")
+            question = Question(
+                "kubernetes", 
+                "API object that manages external access to the services in a cluster, typically HTTP.",
+                "Ingress",
+                "Progress",
+                "Regress",
+                null,
+                4)
             Log.d("TAG", "pie")
             qid =  (questionDao.insertQuestion(question).toInt())
 
