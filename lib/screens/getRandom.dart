@@ -10,7 +10,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-  static const platform = MethodChannel('example.com/channel');
+  static const platform = MethodChannel('backend.com/channel');
 Future<void> _generateRandomNumber() async {
     int random;
     try {

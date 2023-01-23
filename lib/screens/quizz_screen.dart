@@ -25,7 +25,7 @@ class _QuizzScreenState extends State<QuizzScreen> {
   List<dynamic> questions = [];
   List<String> choices = ['choice1', 'choice2', 'choice3', 'choice4'];
 
-  static const platform = MethodChannel('example.com/channel');
+  static const platform = MethodChannel('backend.com/channel');
   Future<void> _generateRandomNumber() async {
     List<Object?> getQuestions;
 
