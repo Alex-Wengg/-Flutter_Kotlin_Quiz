@@ -30,7 +30,7 @@ class MainActivity:  FlutterFragmentActivity()   {
     // var qdb: QuestionDatabase = async { QuestionDatabase.getInstance(this)}.await();
 
     super.configureFlutterEngine(flutterEngine)
-    MethodChannel(flutterEngine.dartExecutor.binaryMessenger, "example.com/channel").setMethodCallHandler {
+    MethodChannel(flutterEngine.dartExecutor.binaryMessenger, "backend.com/channel").setMethodCallHandler {
       call, result ->
       if(call.method == "getRandomNumber") {
         val rand = Random.nextInt(100)
@@ -39,7 +39,7 @@ class MainActivity:  FlutterFragmentActivity()   {
         var questionList = Gson().toJson(setData.getQuestions())
 
         Log.d("TAG", "today's what how message");
-        val que1 = Question("",  "Can our insertion work ok ?" , "yes", null,null, null, 1)
+        val que1 = Question("",  "Can our insertion work ok ?" , "yes", "","", "", 1)
 
         var save = Gson().toJson(questionViewModel.getQuestions.getValue());
         questionViewModel.insert(que1);

@@ -14,7 +14,7 @@ import android.util.Log
 
 @Database(
     entities = [Choice::class, Question::class],
-    version = 3, exportSchema = false
+    version = 4, exportSchema = false
 )
 abstract class QuestionDatabase : RoomDatabase() {
 //https://developer.android.com/codelabs/android-room-with-a-view-kotlin#0
