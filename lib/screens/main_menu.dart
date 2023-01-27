@@ -48,7 +48,7 @@ class _MainMenuState extends State<MainMenu> {
               child: const Padding(
                 padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
                 child: Text(
-                  "Start the Quizz 1",
+                  "Start the Kubernetes Quiz",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 26.0,
@@ -71,7 +71,7 @@ class _MainMenuState extends State<MainMenu> {
               child: const Padding(
                 padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
                 child: Text(
-                  "Start the Quizz 2",
+                  "Start the Go Quiz",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 26.0,
