@@ -83,17 +83,10 @@ abstract class QuestionDatabase : RoomDatabase() {
                 "Ingress",
                 "Progress",
                 "Regress",
-                null,
+                "Frontend API",
                 4)
-            Log.d("TAG", "pie")
-            qid =  (questionDao.insertQuestion(question).toInt())
+            questionDao.insertQuestion(question)
 
-            choice = Choice("Ingress", true, qid)
-            questionDao.insertChoice(choice)
-            choice = Choice("Progress", false, qid)
-            questionDao.insertChoice(choice)
-            choice = Choice("Regress", false, qid)
-            questionDao.insertChoice(choice)
             
 
         }
